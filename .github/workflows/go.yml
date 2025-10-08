@@ -40,19 +40,11 @@ jobs:
   
   # Задание проверяет код на соответствие стилю и отсутствие логических ошибок
   lint:
-  needs: [tests, tests-race]
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4  # Обновите до v4
-    
-    - name: Setup Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.25'
-        cache: true
-    
-    - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@v3
-      with:
-        version: v1.54.2
-        args: --timeout=5m
+    # Задание "lint" зависит от заданий "tests" и "tests-race" и будет выполнено после них
+    needs: [tests, tests-race]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+      # Используется действие "golangci/golangci-lint-action@v3", которое запускает линтер. Он проверит код на соответствие стилю и отсутствие логических ошибок
+      - uses: golangci/golangci-lint-action@v3
