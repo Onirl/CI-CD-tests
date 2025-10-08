@@ -51,3 +51,6 @@ jobs:
           cache: true
       # Используется действие "golangci/golangci-lint-action@v3", которое запускает линтер. Он проверит код на соответствие стилю и отсутствие логических ошибок
       - uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.60.0    # А здесь только параметры для golangci-lint
+          args: --timeout=5m
